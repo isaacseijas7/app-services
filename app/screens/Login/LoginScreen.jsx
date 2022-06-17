@@ -78,7 +78,9 @@ const LoginScreen = () => {
         </FormControl>
 
         <FormControl mb="7">
-          <Text>Has olvidado tu contraseña</Text>
+          <Button variant="link" textAlign="left">
+            Has olvidado tu contraseña
+          </Button>
         </FormControl>
 
         <FormControl mb="7">
@@ -86,6 +88,7 @@ const LoginScreen = () => {
             w="100%"
             size="50"
             borderRadius={25}
+            isLoading={false}
             onPress={() => {
               console.log("Ingresar");
             }}
