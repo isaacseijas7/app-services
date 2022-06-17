@@ -7,23 +7,19 @@ const config = {
 };
 
 // Define the colors
-const colors = {
+export const colors = {
   // Add new color
   primary: {
-    50: "#E3F2F9",
-    100: "#C5E4F3",
-    200: "#A2D4EC",
-    300: "#7AC1E4",
-    400: "#47A9DA",
-    500: "#0088CC",
-    600: "#007AB8",
-    700: "#006BA1",
-    800: "#005885",
-    900: "#003F5E",
-  },
-  // Redefinig only one shade, rest of the color will remain same.
-  amber: {
-    400: "#d97706",
+    50: "#badff9",
+    100: "#a0d4f8",
+    200: "#8bc8f3",
+    300: "#76c1f6",
+    400: "#65baf7",
+    500: "#54b3f7",
+    600: "#42B0FE",
+    700: "#2ca1f5",
+    800: "#158be0",
+    900: "#0463a6",
   },
 };
 

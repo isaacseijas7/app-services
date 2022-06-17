@@ -1,25 +1,20 @@
-import React from "react";
+import { MaterialIcons } from "@expo/vector-icons";
 import {
   Box,
-  Button,
-  Center,
-  Divider,
-  FormControl,
+  Button, FormControl,
   Heading,
   Icon,
   Image,
   Input,
   ScrollView,
   Stack,
-  Text,
-  VStack,
-  WarningOutlineIcon,
+  Text
 } from "native-base";
-import { MaterialIcons } from "@expo/vector-icons";
+import React, { useState } from "react";
 import ToggleDarkMode from "../components/ToggleDarkMode";
 
 const Home = () => {
-  const [show, setShow] = React.useState(false);
+  const [show, setShow] = useState(false);
 
   return (
     <ScrollView
@@ -80,28 +75,11 @@ const Home = () => {
                 }
                 placeholder="Ingrese su contraseña"
               />
-              {/* <FormControl.HelperText>
-              Ingrese su contraseña.
-            </FormControl.HelperText> */}
             </FormControl>
 
             <Button isLoading={false}>Ingresar</Button>
           </Stack>
         </Box>
-        {/* <Box>
-          <Text bold fontSize="xl" mb="4">
-            Invalid
-          </Text>
-          <FormControl isInvalid>
-            <FormControl.Label>Project Title</FormControl.Label>
-            <Input placeholder="Title" />
-            <FormControl.ErrorMessage
-              leftIcon={<WarningOutlineIcon size="xs" />}
-            >
-              Something is wrong.
-            </FormControl.ErrorMessage>
-          </FormControl>
-        </Box> */}
       </Stack>
     </ScrollView>
   );
