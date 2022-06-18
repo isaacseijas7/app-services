@@ -1,20 +1,17 @@
+import { useNavigation } from "@react-navigation/native";
 import {
-  Center,
-  Container,
-  Heading,
-  Text,
-  View,
   Box,
-  Button,
+  Button, Center, Heading,
+  Text,
+  View
 } from "native-base";
 import React, { useState } from "react";
-import { SafeAreaView, StatusBar, StyleSheet } from "react-native";
-import { useTimeout } from "../../hooks/useTimeout";
+import { StyleSheet } from "react-native";
 import * as Animatable from "react-native-animatable";
-import { useNavigation } from "@react-navigation/native";
-import LayoutsDefault from "../../layouts/LayoutsDefault";
 import { useWindowDimensions } from "react-native-web";
 import { colors } from "../../core/theme";
+import { useTimeout } from "../../hooks/useTimeout";
+import LayoutsDefault from "../../layouts/LayoutsDefault";
 
 const Welcome = () => {
   return (
