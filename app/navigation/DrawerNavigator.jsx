@@ -4,9 +4,9 @@ import React from "react";
 import { useWindowDimensions } from "react-native";
 import CustomSidebarMenu from "../components/CustomSidebarMenu/CustomSidebarMenu";
 import MyHeader from "../components/MyHeader/MyHeader";
+import { colors } from "../core/theme";
 import { SettingsStackNavigator } from "./StackNavigator";
 import TabNavigator from "./TabNavigator";
-
 
 const Drawer = createDrawerNavigator();
 
@@ -41,6 +41,7 @@ const DrawerNavigator = () => {
         },
         headerStyle: {
           height: 55,
+          backgroundColor: colors.primary["600"],
         },
       }}
     >

@@ -12,11 +12,15 @@ const MyHeader = ({ title, style }) => {
       flexDirection="row"
       justifyContent="space-between"
       alignItems="center"
-      backgroundColor="white"
+      backgroundColor="primary.600"
       paddingX={5}
+      borderBottomColor="gray.300"
+      borderBottomWidth={1}
     >
       <View></View>
-      <Heading size={"sm"}>{title}</Heading>
+      <Heading size={"sm"} color="white">
+        {title}
+      </Heading>
       <View>
         <Pressable
           onPress={() => {
@@ -24,7 +28,7 @@ const MyHeader = ({ title, style }) => {
             navigation.openDrawer();
           }}
         >
-          <Ionicons name="menu" size={24} color="#333" />
+          <Ionicons name="menu" size={24} color="white" />
         </Pressable>
       </View>
     </View>
