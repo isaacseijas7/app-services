@@ -1,19 +1,10 @@
 import { AntDesign, MaterialIcons } from "@expo/vector-icons";
-import {
-  FormControl,
-  Heading,
-  Icon,
-  Button,
-  Input,
-  View,
-  Text,
-} from "native-base";
+import { Button, FormControl, Heading, Icon, Input, View } from "native-base";
 import React from "react";
 import { SafeAreaView, StatusBar, StyleSheet } from "react-native";
 
-const LoginScreen = () => {
-  const [show, setShow] = React.useState(false);
-  const handleClick = () => setShow(!show);
+const LoginScreen = ({ navigation }) => {
+  const [seePassword, setSeePassword] = React.useState(false);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -27,6 +18,7 @@ const LoginScreen = () => {
               base: "100%",
             }}
             h={50}
+            fontSize="md"
             InputLeftElement={
               <Icon
                 as={<AntDesign name="mail" />}
@@ -46,14 +38,15 @@ const LoginScreen = () => {
 
         <FormControl mb="7">
           <Input
-            type={show ? "text" : "password"}
+            type={seePassword ? "text" : "password"}
             w={{
               base: "100%",
             }}
             h={50}
+            fontSize="md"
             InputLeftElement={
               <Icon
-                as={<AntDesign name={show ? "unlock" : "lock1"} />}
+                as={<AntDesign name={seePassword ? "unlock" : "lock1"} />}
                 size={5}
                 ml="2"
                 color="muted.400"
@@ -63,13 +56,13 @@ const LoginScreen = () => {
               <Icon
                 as={
                   <MaterialIcons
-                    name={show ? "visibility" : "visibility-off"}
+                    name={seePassword ? "visibility" : "visibility-off"}
                   />
                 }
                 size={5}
                 mr="2"
                 color="muted.400"
-                onPress={handleClick}
+                onPress={() => setSeePassword(!seePassword)}
               />
             }
             placeholder="Introduce tu contraseña"
@@ -78,7 +71,14 @@ const LoginScreen = () => {
         </FormControl>
 
         <FormControl mb="7">
-          <Button variant="link" textAlign="left">
+          <Button
+            variant="ghost"
+            justifyContent="flex-start"
+            colorScheme="light"
+            _text={{
+              fontSize: "md",
+            }}
+          >
             Has olvidado tu contraseña
           </Button>
         </FormControl>
@@ -87,10 +87,13 @@ const LoginScreen = () => {
           <Button
             w="100%"
             size="50"
-            borderRadius={25}
+            borderRadius={30}
             isLoading={false}
+            _text={{
+              fontSize: "md",
+            }}
             onPress={() => {
-              console.log("Ingresar");
+              navigation.navigate("DrawerNavigator");
             }}
           >
             Ingresar
@@ -101,13 +104,16 @@ const LoginScreen = () => {
           <Button
             w="100%"
             size="50"
-            borderRadius={25}
-            backgroundColor="gray.400"
+            borderRadius={30}
+            colorScheme="light"
+            _text={{
+              fontSize: "md",
+            }}
             onPress={() => {
-              console.log("Create account");
+              navigation.navigate("CreateScreen");
             }}
           >
-            Create account
+            Crear una cuenta
           </Button>
         </FormControl>
       </View>

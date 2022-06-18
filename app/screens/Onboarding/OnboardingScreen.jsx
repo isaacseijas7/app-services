@@ -12,20 +12,19 @@ import { SafeAreaView, StatusBar, StyleSheet } from "react-native";
 import { useTimeout } from "../../hooks/useTimeout";
 import * as Animatable from "react-native-animatable";
 import { useNavigation } from "@react-navigation/native";
+import LayoutsDefault from "../../layouts/LayoutsDefault";
+import { useWindowDimensions } from "react-native-web";
+import { colors } from "../../core/theme";
 
 const Welcome = () => {
   return (
-    <Center>
-      <Container>
-        <Center>
-          <Heading bold color="white">
-            Bienvenido a AppServices
-          </Heading>
-          <Text color="primary.50">
-            Búscalo que alguien lo tiene, lo ofrece o lo hace.
-          </Text>
-        </Center>
-      </Container>
+    <Center paddingX={5}>
+      <Heading fontSize="lg" bold color="white">
+        Bienvenido a AppServices
+      </Heading>
+      <Text color="primary.50">
+        Búscalo que alguien lo tiene, lo ofrece o lo hace.
+      </Text>
     </Center>
   );
 };
@@ -57,7 +56,15 @@ const CardOnboarding = ({ title, subTitle, textButton, onPress }) => {
             justifyContent="space-between"
             alignItems="center"
           >
-            <Button w="2/3" size="50" borderRadius={25} onPress={onPress}>
+            <Button
+              w="2/3"
+              _text={{
+                fontSize: "md",
+              }}
+              size="50"
+              borderRadius={30}
+              onPress={onPress}
+            >
               {textButton}
             </Button>
             <Box
@@ -91,6 +98,7 @@ const CardOnboarding = ({ title, subTitle, textButton, onPress }) => {
 const OnboardingScreen = () => {
   const [step, setStep] = useState(0);
   const navigation = useNavigation();
+  const dimensions = useWindowDimensions();
 
   useTimeout(() => {
     if (step === 0) {
@@ -112,22 +120,30 @@ const OnboardingScreen = () => {
   ];
 
   return (
-    <SafeAreaView style={styles.container}>
-      <StatusBar />
+    <LayoutsDefault
+      style={{
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        flexDirection: "row",
+        backgroundColor: colors.primary["600"],
+      }}
+    >
       <View
         w="100%"
-        _dark={{ bg: "blueGray.900" }}
-        _light={{ bg: "primary.600" }}
-        style={{
-          ...styles.container,
-          justifyContent: step > 0 ? "space-between" : "center",
-        }}
+        h={dimensions.height}
+        justifyContent="center"
+        alignItems="center"
       >
         {step === 0 && <Welcome />}
 
         {step > 0 && (
           <>
-            <View></View>
+            <View flex={1} justifyContent="center">
+              <Heading fontSize="lg" bold color="white">
+                Bienvenido a AppServices
+              </Heading>
+            </View>
             {step === 1 && (
               <CardOnboarding
                 title={stepsData[step - 1].title}
@@ -159,7 +175,7 @@ const OnboardingScreen = () => {
           </>
         )}
       </View>
-    </SafeAreaView>
+    </LayoutsDefault>
   );
 };
 
