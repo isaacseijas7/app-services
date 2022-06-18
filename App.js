@@ -3,6 +3,7 @@ import React from "react";
 import { theme } from "./app/core/theme";
 import AppNavigation from "./app/navigation/Navigation";
 
+
 export default function App() {
   return (
     <NativeBaseProvider theme={theme}>
