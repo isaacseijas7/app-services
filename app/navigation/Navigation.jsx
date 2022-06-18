@@ -23,7 +23,7 @@ const AppNavigation = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="CreateScreen"
+        initialRouteName="OnboardingScreen"
         screenOptions={screenOptions}
       >
         <Stack.Screen name="OnboardingScreen" component={OnboardingScreen} />
