@@ -9,36 +9,57 @@ import {
   View,
   WarningOutlineIcon
 } from "native-base";
-import React from "react";
+import React, { useState } from "react";
 import { SafeAreaView, StatusBar, StyleSheet } from "react-native";
 import * as Yup from "yup";
 import YupPassword from "yup-password";
 YupPassword(Yup);
 
-const LoginScreen = ({ navigation }) => {
-  const [seePassword, setSeePassword] = React.useState(false);
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-  const SignupSchema = Yup.object().shape({
+const LoginScreen = ({ navigation }) => {
+  const [loading, setLoading] = useState(false);
+  const [seePassword, setSeePassword] = useState(false);
+
+  const LoginSchema = Yup.object().shape({
     email: Yup.string().email("Email inválido").required("Requerido"),
     password: Yup.string()
       .min(8, "¡Demasiado corto!")
       .max(12, "Demasiado largo")
       .minUppercase(2, "Dos letras mayúsculas o más.")
-      .minNumbers(1, 'Un caracter de númerico o más.')
-      .minSymbols(2, 'Dos caracteres especiales o más.')
+      .minNumbers(1, "Un caracter de númerico o más.")
+      .minSymbols(2, "Dos caracteres especiales o más.")
       .required("Requerido"),
   });
+
+  // const formik = useFormik({
+  //   initialValues: {
+  //     email: "",
+  //     password: "",
+  //   },
+  //   validationSchema: LoginSchema,
+  //   onSubmit: (values) => {
+  //     console.log(values);
+  //     navigation.navigate("DrawerNavigator");
+  //   },
+  // });
+
+  // console.log({ formik });
 
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar />
       <Formik
         initialValues={{ email: "", password: "" }}
-        onSubmit={(values) => {
+        onSubmit={async (values, { resetForm }) => {
+          setLoading(true);
+          await sleep(1000);
           console.log(values);
+          setLoading(false);
+          resetForm();
           navigation.navigate("DrawerNavigator");
         }}
-        validationSchema={SignupSchema}
+        validationSchema={LoginSchema}
       >
         {({
           handleChange,
@@ -147,7 +168,7 @@ const LoginScreen = ({ navigation }) => {
                 w="100%"
                 size="50"
                 borderRadius={30}
-                isLoading={false}
+                isLoading={loading}
                 _text={{
                   fontSize: "md",
                 }}

@@ -1,4 +1,5 @@
 import { AntDesign, MaterialIcons } from "@expo/vector-icons";
+import { Formik } from "formik";
 import {
   Button,
   FormControl,
@@ -6,16 +7,18 @@ import {
   Icon,
   Input,
   View,
-  WarningOutlineIcon,
+  WarningOutlineIcon
 } from "native-base";
-import React from "react";
+import React, { useState } from "react";
 import { SafeAreaView, StatusBar, StyleSheet } from "react-native";
 import * as Yup from "yup";
-import { Formik } from "formik";
 import YupPassword from "yup-password";
 YupPassword(Yup);
 
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
 const CreateScreen = ({ navigation }) => {
+  const [loading, setLoading] = useState(false);
   const [seePassword, setSeePassword] = React.useState(false);
   const [seePasswordConfirm, setSeePasswordConfirm] = React.useState(false);
 
@@ -47,8 +50,12 @@ const CreateScreen = ({ navigation }) => {
           password: "",
           passwordConfirmation: "",
         }}
-        onSubmit={(values) => {
+        onSubmit={async (values, { resetForm }) => {
+          setLoading(true);
+          await sleep(1000);
           console.log(values);
+          setLoading(false);
+          resetForm();
           navigation.navigate("DrawerNavigator");
         }}
         validationSchema={SignupSchema}
@@ -233,7 +240,7 @@ const CreateScreen = ({ navigation }) => {
                 w="100%"
                 size="50"
                 borderRadius={30}
-                isLoading={false}
+                isLoading={loading}
                 _text={{
                   fontSize: "md",
                 }}
