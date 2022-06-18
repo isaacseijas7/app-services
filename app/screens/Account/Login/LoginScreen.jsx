@@ -18,7 +18,6 @@ YupPassword(Yup);
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 const LoginScreen = ({ navigation }) => {
-  const [loading, setLoading] = useState(false);
   const [seePassword, setSeePassword] = useState(false);
 
   const LoginSchema = Yup.object().shape({
@@ -52,10 +51,8 @@ const LoginScreen = ({ navigation }) => {
       <Formik
         initialValues={{ email: "", password: "" }}
         onSubmit={async (values, { resetForm }) => {
-          setLoading(true);
           await sleep(1000);
           console.log(values);
-          setLoading(false);
           resetForm();
           navigation.navigate("DrawerNavigator");
         }}
@@ -65,6 +62,7 @@ const LoginScreen = ({ navigation }) => {
           handleChange,
           handleBlur,
           handleSubmit,
+          isSubmitting,
           values,
           errors,
           touched,
@@ -168,7 +166,7 @@ const LoginScreen = ({ navigation }) => {
                 w="100%"
                 size="50"
                 borderRadius={30}
-                isLoading={loading}
+                isLoading={isSubmitting}
                 _text={{
                   fontSize: "md",
                 }}

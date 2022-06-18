@@ -18,7 +18,6 @@ YupPassword(Yup);
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 const CreateScreen = ({ navigation }) => {
-  const [loading, setLoading] = useState(false);
   const [seePassword, setSeePassword] = React.useState(false);
   const [seePasswordConfirm, setSeePasswordConfirm] = React.useState(false);
 
@@ -51,10 +50,8 @@ const CreateScreen = ({ navigation }) => {
           passwordConfirmation: "",
         }}
         onSubmit={async (values, { resetForm }) => {
-          setLoading(true);
           await sleep(1000);
           console.log(values);
-          setLoading(false);
           resetForm();
           navigation.navigate("DrawerNavigator");
         }}
@@ -64,10 +61,10 @@ const CreateScreen = ({ navigation }) => {
           handleChange,
           handleBlur,
           handleSubmit,
+          isSubmitting,
           values,
           errors,
           touched,
-          resetForm,
         }) => (
           <View paddingX={5} paddingY={10}>
             <Heading mb="10">Crear cuenta</Heading>
@@ -240,7 +237,7 @@ const CreateScreen = ({ navigation }) => {
                 w="100%"
                 size="50"
                 borderRadius={30}
-                isLoading={loading}
+                isLoading={isSubmitting}
                 _text={{
                   fontSize: "md",
                 }}
