@@ -7,7 +7,7 @@ import {
   Icon,
   Input,
   View,
-  WarningOutlineIcon,
+  WarningOutlineIcon
 } from "native-base";
 import React from "react";
 import { SafeAreaView, StatusBar, StyleSheet } from "react-native";
