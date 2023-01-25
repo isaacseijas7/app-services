@@ -3,7 +3,6 @@ import { Box, Button, Center, Heading, Text, View } from "native-base";
 import React, { useState } from "react";
 import { StyleSheet } from "react-native";
 import * as Animatable from "react-native-animatable";
-import { useWindowDimensions } from "react-native-web";
 import { colors } from "../../core/theme";
 import { useTimeout } from "../../hooks/useTimeout";
 import LayoutsDefault from "../../layouts/LayoutsDefault";
@@ -90,13 +89,12 @@ const CardOnboarding = ({ title, subTitle, textButton, onPress }) => {
 const OnboardingScreen = () => {
   const [step, setStep] = useState(0);
   const navigation = useNavigation();
-  const dimensions = useWindowDimensions();
 
   useTimeout(() => {
     if (step === 0) {
       setStep(1);
     }
-  }, 5000);
+  }, 3000);
 
   const stepsData = [
     {
@@ -109,12 +107,15 @@ const OnboardingScreen = () => {
       subTitle: "Búscalo que alguien lo tiene, lo ofrece o lo hace.",
       textButton: "Empezar",
     },
-    {
-      title: "Esto es una ladilla",
-      subTitle: "Dios mio ayudame",
-      textButton: "",
-    },
   ];
+
+  const nextStep = (currentStep) => {
+    if (currentStep >= stepsData.length) {
+      navigation.navigate("LoginScreen");
+    } else {
+      setStep(currentStep + 1);
+    }
+  };
 
   return (
     <LayoutsDefault
@@ -136,34 +137,24 @@ const OnboardingScreen = () => {
                 Bienvenido a AppServices
               </Heading>
             </View>
-            {step === 1 && (
-              <CardOnboarding
-                title={stepsData[step - 1].title}
-                subTitle={stepsData[step - 1].subTitle}
-                textButton={stepsData[step - 1].textButton}
-                onPress={() => {
-                  if (step <= 1) {
-                    setStep(2);
-                  } else {
-                    navigation.navigate("LoginScreen");
-                  }
-                }}
-              />
-            )}
-            {step === 2 && (
-              <CardOnboarding
-                title={stepsData[step - 1].title}
-                subTitle={stepsData[step - 1].subTitle}
-                textButton={stepsData[step - 1].textButton}
-                onPress={() => {
-                  if (step <= 1) {
-                    setStep(2);
-                  } else {
-                    navigation.navigate("LoginScreen");
-                  }
-                }}
-              />
-            )}
+            {stepsData.map((item, key) => {
+              return (
+                <View key={key}>
+                  {step === key + 1 && (
+                    <>
+                      <CardOnboarding
+                        title={item.title}
+                        subTitle={item.subTitle}
+                        textButton={item.textButton}
+                        onPress={() => {
+                          nextStep(key + 1);
+                        }}
+                      />
+                    </>
+                  )}
+                </View>
+              );
+            })}
           </>
         )}
       </View>
