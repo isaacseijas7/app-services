@@ -1,10 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import {
-  Box,
-  Button, Center, Heading,
-  Text,
-  View
-} from "native-base";
+import { Box, Button, Center, Heading, Text, View } from "native-base";
 import React, { useState } from "react";
 import { StyleSheet } from "react-native";
 import * as Animatable from "react-native-animatable";
@@ -101,7 +96,7 @@ const OnboardingScreen = () => {
     if (step === 0) {
       setStep(1);
     }
-  }, 2000);
+  }, 5000);
 
   const stepsData = [
     {
@@ -113,6 +108,11 @@ const OnboardingScreen = () => {
       title: "Cuenta a partir de ahora con nosotros.",
       subTitle: "Búscalo que alguien lo tiene, lo ofrece o lo hace.",
       textButton: "Empezar",
+    },
+    {
+      title: "Esto es una ladilla",
+      subTitle: "Dios mio ayudame",
+      textButton: "",
     },
   ];
 
@@ -126,12 +126,7 @@ const OnboardingScreen = () => {
         backgroundColor: colors.primary["600"],
       }}
     >
-      <View
-        w="100%"
-        h={dimensions.height}
-        justifyContent="center"
-        alignItems="center"
-      >
+      <View w="100%" h={"100%"} justifyContent="center" alignItems="center">
         {step === 0 && <Welcome />}
 
         {step > 0 && (
