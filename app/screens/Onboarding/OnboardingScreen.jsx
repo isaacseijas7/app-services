@@ -10,10 +10,10 @@ import LayoutsDefault from "../../layouts/LayoutsDefault";
 const Welcome = () => {
   return (
     <Center paddingX={5}>
-      <Heading fontSize="lg" bold color="white">
+      <Heading fontSize="2xl" bold color="white">
         Bienvenido a AppServices
       </Heading>
-      <Text color="primary.50">
+      <Text fontSize={"md"} color="primary.50">
         Búscalo que alguien lo tiene, lo ofrece o lo hace.
       </Text>
     </Center>
@@ -94,7 +94,7 @@ const OnboardingScreen = () => {
     if (step === 0) {
       setStep(1);
     }
-  }, 3000);
+  }, 5000);
 
   const stepsData = [
     {
@@ -111,7 +111,7 @@ const OnboardingScreen = () => {
 
   const nextStep = (currentStep) => {
     if (currentStep >= stepsData.length) {
-      navigation.navigate("LoginScreen");
+      navigation.navigate("CameraScreen");
     } else {
       setStep(currentStep + 1);
     }
@@ -132,10 +132,13 @@ const OnboardingScreen = () => {
 
         {step > 0 && (
           <>
-            <View flex={1} justifyContent="center">
-              <Heading fontSize="lg" bold color="white">
+            <View flex={1} justifyContent="center" alignItems={"center"}>
+              <Heading fontSize="2xl" bold color="white">
                 Bienvenido a AppServices
               </Heading>
+              <Text fontSize={"md"} color="primary.50">
+                Búscalo que alguien lo tiene, lo ofrece o lo hace.
+              </Text>
             </View>
             {stepsData.map((item, key) => {
               return (

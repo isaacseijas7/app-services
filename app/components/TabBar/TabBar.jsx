@@ -24,7 +24,7 @@ const TabBar = ({ state, descriptors, navigation }) => {
             : options.title !== undefined
             ? options.title
             : route.name;
-        
+
         const isFocused = state.index === index;
 
         const onPress = () => {
@@ -78,11 +78,7 @@ const TabBar = ({ state, descriptors, navigation }) => {
             )}
 
             {label === "Perfil" && (
-              <FontAwesome5
-                name="user-alt"
-                size={24}
-                color={colorIcon}
-              />
+              <FontAwesome5 name="user-alt" size={24} color={colorIcon} />
             )}
             <Text style={{ color: colorIcon }}>{label}</Text>
           </Pressable>

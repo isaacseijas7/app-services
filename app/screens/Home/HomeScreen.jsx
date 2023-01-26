@@ -1,8 +1,10 @@
-import { ScrollView, Text, View } from "native-base";
+import { Button, ScrollView, Text, View } from "native-base";
 import React from "react";
 import LayoutsDefault from "../../layouts/LayoutsDefault";
+import { useNavigation } from "@react-navigation/native";
 
 const HomeScreen = () => {
+  const navigation = useNavigation();
   return (
     <LayoutsDefault
       style={{
@@ -19,7 +21,13 @@ const HomeScreen = () => {
           flex={1}
           alignItems="center"
         >
-          <Text>Home</Text>
+          <Button
+            onPress={() => {
+              navigation.navigate("CameraScreen");
+            }}
+          >
+            <Text color={"white"}>Tomar Foto</Text>
+          </Button>
         </View>
       </ScrollView>
     </LayoutsDefault>

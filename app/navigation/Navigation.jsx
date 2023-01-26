@@ -6,6 +6,7 @@ import * as React from "react";
 import CreateScreen from "../screens/Account/Create/CreateScreen";
 import LoginScreen from "../screens/Account/Login/LoginScreen";
 import OnboardingScreen from "../screens/Onboarding/OnboardingScreen";
+import CameraScreen from "../screens/Camera/CameraScreen";
 import DrawerNavigator from "./DrawerNavigator";
 
 const Stack = createNativeStackNavigator();
@@ -27,6 +28,7 @@ const AppNavigation = () => {
         screenOptions={screenOptions}
       >
         <Stack.Screen name="OnboardingScreen" component={OnboardingScreen} />
+        <Stack.Screen name="CameraScreen" component={CameraScreen} />
         <Stack.Screen name="LoginScreen" component={LoginScreen} />
         <Stack.Screen name="CreateScreen" component={CreateScreen} />
         <Stack.Screen name="DrawerNavigator" component={DrawerNavigator} />
