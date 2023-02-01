@@ -4725,6 +4725,11 @@ expo-asset@~8.7.0:
     path-browserify "^1.0.0"
     url-parse "^1.5.9"
 
+expo-av@~13.0.2:
+  version "13.0.2"
+  resolved "https://registry.yarnpkg.com/expo-av/-/expo-av-13.0.2.tgz#06c2c5140b334319ed2844823181f7b88092da13"
+  integrity sha512-u+y9wUBodp08UjRZYckNWzr9zEQHK6eScRBkhdTd9Rq48SEZ7eN6xXn79hubvk0P5nj7lFS+hdKjmx9T5XHGww==
+
 expo-camera@~13.1.0:
   version "13.1.0"
   resolved "https://registry.yarnpkg.com/expo-camera/-/expo-camera-13.1.0.tgz#e706a8efc78d1891d848ff729730d9d75468d36d"
