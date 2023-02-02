@@ -8,13 +8,17 @@ import { useNavigation } from "@react-navigation/native";
 import { Video } from "expo-av";
 
 const CameraScreen = () => {
+  const [hasCameraPermission, setHasCameraPermission] = useState();
+  const [hasMicrophonePermission, setHasMicrophonePermission] = useState();
   const [type, setType] = useState(CameraType.back);
   const [flash, setFlash] = useState(FlashMode.off);
   const [image, setImage] = useState(null);
   const [isRecording, setIsRecording] = useState(false);
   const [video, setVideo] = useState();
+  const [statusVideo, setStatusVideo] = useState({});
   const [modo, setModo] = useState("photo");
   const cameraRef = useRef(null);
+  const videoRef = useRef(null);
 
   const [permissionCamera, requestPermissionCamera] =
     Camera.useCameraPermissions();
@@ -25,8 +29,12 @@ const CameraScreen = () => {
 
   useEffect(() => {
     (async () => {
-      await Camera.requestCameraPermissionsAsync();
-      await Camera.requestMicrophonePermissionsAsync();
+      const cameraPermission = await Camera.requestCameraPermissionsAsync();
+      const microphonePermission =
+        await Camera.requestMicrophonePermissionsAsync();
+
+      setHasCameraPermission(cameraPermission.status === "granted");
+      setHasMicrophonePermission(microphonePermission.status === "granted");
     })();
   }, []);
 
@@ -77,27 +85,7 @@ const CameraScreen = () => {
     cameraRef.current.stopRecording();
   };
 
-  if (!permissionCamera) {
-    return (
-      <View style={styles.containerNotGranted}>
-        <Text fontSize="xl" bold>
-          Sin acceso a la cámara
-        </Text>
-      </View>
-    );
-  }
-
-  if (!permissionMicrophone) {
-    return (
-      <View style={styles.containerNotGranted}>
-        <Text fontSize="xl" bold>
-          Sin acceso al micrófono
-        </Text>
-      </View>
-    );
-  }
-
-  if (!permissionCamera.granted) {
+  if (hasCameraPermission === undefined) {
     return (
       <View style={styles.containerNotGranted}>
         <Text fontSize="lg" bold style={{ marginBottom: 5 }}>
@@ -114,7 +102,7 @@ const CameraScreen = () => {
     );
   }
 
-  if (!permissionMicrophone.granted) {
+  if (hasMicrophonePermission === undefined) {
     return (
       <View style={styles.containerNotGranted}>
         <Text fontSize="lg" bold style={{ marginBottom: 5 }}>
@@ -122,7 +110,7 @@ const CameraScreen = () => {
         </Text>
         <Button
           onPress={() => {
-            requestPermissionCamera();
+            requestPermissionMicrophone();
           }}
         >
           Quiero usar el micrófono
@@ -135,6 +123,7 @@ const CameraScreen = () => {
     return (
       <SafeAreaView style={styles.container}>
         <View
+          margin={10}
           flex={1}
           style={{
             position: "relative",
@@ -142,11 +131,14 @@ const CameraScreen = () => {
         >
           {video ? (
             <Video
+              ref={videoRef}
               style={styles.previewMediaFile}
               source={{ uri: video.uri }}
-              useNativeControls
               resizeMode="contain"
-              isLooping={false}
+              isLooping={true}
+              onPlaybackStatusUpdate={(statusVideo) =>
+                setStatusVideo(() => statusVideo)
+              }
             />
           ) : (
             <>
@@ -162,9 +154,9 @@ const CameraScreen = () => {
           <View
             style={{
               position: "absolute",
-              top: 50,
+              top: 0,
               left: 0,
-              bottom: 50,
+              bottom: 0,
               right: 0,
               justifyContent: "center",
               alignItems: "center",
@@ -185,14 +177,39 @@ const CameraScreen = () => {
             </Text>
           </View>
         </View>
-        <Button
-          onPress={() => {
-            setVideo(null);
-            setImage(null);
-          }}
-        >
-          Regresar
-        </Button>
+
+        <View margin={10}>
+          {video && (
+            <Button
+              marginBottom={3}
+              onPress={() => {
+                console.log("====================================");
+                console.log({ statusVideo, videoRef: videoRef.current });
+                console.log("====================================");
+                if (statusVideo.isPlaying) {
+                  videoRef.current.pauseAsync();
+                } else {
+                  videoRef.current.playAsync();
+                }
+              }}
+            >
+              {statusVideo.isPlaying ? (
+                <Ionicons name={"md-pause"} size={25} color="#fff" />
+              ) : (
+                <Ionicons name={"md-play"} size={25} color="#fff" />
+              )}
+            </Button>
+          )}
+          <Button
+            marginBottom={1}
+            onPress={() => {
+              setVideo(null);
+              setImage(null);
+            }}
+          >
+            Regresar
+          </Button>
+        </View>
       </SafeAreaView>
     );
   }
