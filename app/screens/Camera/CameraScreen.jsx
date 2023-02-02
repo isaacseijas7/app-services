@@ -8,9 +8,6 @@ import { useNavigation } from "@react-navigation/native";
 import { Video } from "expo-av";
 
 const CameraScreen = () => {
-  const [hasCameraPermission, setHasCameraPermission] = useState();
-  const [hasMicrophonePermission, setHasMicrophonePermission] = useState();
-
   const [type, setType] = useState(CameraType.back);
   const [flash, setFlash] = useState(FlashMode.off);
   const [image, setImage] = useState(null);
@@ -28,12 +25,8 @@ const CameraScreen = () => {
 
   useEffect(() => {
     (async () => {
-      const cameraPermission = await Camera.requestCameraPermissionsAsync();
-      const microphonePermission =
-        await Camera.requestMicrophonePermissionsAsync();
-
-      setHasCameraPermission(cameraPermission.status === "granted");
-      setHasMicrophonePermission(microphonePermission.status === "granted");
+      await Camera.requestCameraPermissionsAsync();
+      await Camera.requestMicrophonePermissionsAsync();
     })();
   }, []);
 
@@ -141,25 +134,57 @@ const CameraScreen = () => {
   if (video || image) {
     return (
       <SafeAreaView style={styles.container}>
-        {video ? (
-          <Video
-            style={styles.previewMediaFile}
-            source={{ uri: video.uri }}
-            useNativeControls
-            resizeMode="contain"
-            isLooping={false}
-          />
-        ) : (
-          <>
-            {image && (
-              <Image
-                source={{ uri: image }}
-                alt="foto"
-                style={styles.previewMediaFile}
-              />
-            )}
-          </>
-        )}
+        <View
+          flex={1}
+          style={{
+            position: "relative",
+          }}
+        >
+          {video ? (
+            <Video
+              style={styles.previewMediaFile}
+              source={{ uri: video.uri }}
+              useNativeControls
+              resizeMode="contain"
+              isLooping={false}
+            />
+          ) : (
+            <>
+              {image && (
+                <Image
+                  source={{ uri: image }}
+                  alt="foto"
+                  style={styles.previewMediaFile}
+                />
+              )}
+            </>
+          )}
+          <View
+            style={{
+              position: "absolute",
+              top: 50,
+              left: 0,
+              bottom: 50,
+              right: 0,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Text color={"blue.200"} fontSize={"2xl"} opacity={0.2}>
+              10Code.es 10Code.es 10Code.es 10Code.es 10Code.es 10Code.es
+              10Code.es 10Code.es 10Code.es 10Code.es 10Code.es 10Code.es
+              10Code.es 10Code.es 10Code.es 10Code.es 10Code.es 10Code.es
+              10Code.es 10Code.es 10Code.es 10Code.es 10Code.es 10Code.es
+              10Code.es 10Code.es 10Code.es 10Code.es 10Code.es 10Code.es
+              10Code.es 10Code.es 10Code.es 10Code.es 10Code.es 10Code.es
+              10Code.es 10Code.es 10Code.es 10Code.es 10Code.es 10Code.es
+              10Code.es 10Code.es 10Code.es 10Code.es 10Code.es 10Code.es
+              10Code.es 10Code.es 10Code.es 10Code.es 10Code.es 10Code.es
+              10Code.es 10Code.es 10Code.es 10Code.es 10Code.es 10Code.es
+              10Code.es 10Code.es 10Code.es 10Code.es 10Code.es 10Code.es
+            </Text>
+          </View>
+        </View>
         <Button
           onPress={() => {
             setVideo(null);
@@ -263,7 +288,7 @@ const CameraScreen = () => {
                   ? "md-camera"
                   : isRecording
                   ? "stop-circle"
-                  : "md-videocam-outline"
+                  : "md-videocam"
               }
               size={35}
               color={
