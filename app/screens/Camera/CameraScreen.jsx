@@ -6,6 +6,8 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { colors } from "../../core/theme";
 import { useNavigation } from "@react-navigation/native";
 import { Video } from "expo-av";
+import HeaderCamera from "../../components/HeaderCamera/HeaderCamera";
+import Watermark from "../../components/Watermark/Watermark";
 
 const CameraScreen = () => {
   const [hasCameraPermission, setHasCameraPermission] = useState();
@@ -122,60 +124,31 @@ const CameraScreen = () => {
   if (video || image) {
     return (
       <SafeAreaView style={styles.container}>
-        <View
-          margin={10}
-          flex={1}
-          style={{
-            position: "relative",
-          }}
-        >
-          {video ? (
-            <Video
-              ref={videoRef}
-              style={styles.previewMediaFile}
-              source={{ uri: video.uri }}
-              resizeMode="contain"
-              isLooping={true}
-              onPlaybackStatusUpdate={(statusVideo) =>
-                setStatusVideo(() => statusVideo)
-              }
-            />
-          ) : (
-            <>
-              {image && (
-                <Image
-                  source={{ uri: image }}
-                  alt="foto"
-                  style={styles.previewMediaFile}
-                />
-              )}
-            </>
-          )}
-          <View
-            style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              bottom: 0,
-              right: 0,
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <Text color={"blue.200"} fontSize={"2xl"} opacity={0.2}>
-              10Code.es 10Code.es 10Code.es 10Code.es 10Code.es 10Code.es
-              10Code.es 10Code.es 10Code.es 10Code.es 10Code.es 10Code.es
-              10Code.es 10Code.es 10Code.es 10Code.es 10Code.es 10Code.es
-              10Code.es 10Code.es 10Code.es 10Code.es 10Code.es 10Code.es
-              10Code.es 10Code.es 10Code.es 10Code.es 10Code.es 10Code.es
-              10Code.es 10Code.es 10Code.es 10Code.es 10Code.es 10Code.es
-              10Code.es 10Code.es 10Code.es 10Code.es 10Code.es 10Code.es
-              10Code.es 10Code.es 10Code.es 10Code.es 10Code.es 10Code.es
-              10Code.es 10Code.es 10Code.es 10Code.es 10Code.es 10Code.es
-              10Code.es 10Code.es 10Code.es 10Code.es 10Code.es 10Code.es
-              10Code.es 10Code.es 10Code.es 10Code.es 10Code.es 10Code.es
-            </Text>
-          </View>
+        <View margin={10} flex={1}>
+          <Watermark>
+            {video ? (
+              <Video
+                ref={videoRef}
+                style={styles.previewMediaFile}
+                source={{ uri: video.uri }}
+                resizeMode="contain"
+                isLooping={true}
+                onPlaybackStatusUpdate={(statusVideo) =>
+                  setStatusVideo(() => statusVideo)
+                }
+              />
+            ) : (
+              <>
+                {image && (
+                  <Image
+                    source={{ uri: image }}
+                    alt="foto"
+                    style={styles.previewMediaFile}
+                  />
+                )}
+              </>
+            )}
+          </Watermark>
         </View>
 
         <View margin={10}>
@@ -216,33 +189,21 @@ const CameraScreen = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.containerTop}>
-        <Pressable
-          style={styles.containerTop.button}
-          onPress={toggleCameraFlash}
-        >
-          <Ionicons
-            name={flash === FlashMode.off ? "md-flash-off" : "md-flash"}
-            size={30}
-            color="#fff"
-          />
-        </Pressable>
-
-        <Pressable
-          style={styles.containerTop.button}
-          onPress={() => {
-            navigation.navigate("OnboardingScreen");
-          }}
-        >
-          <Ionicons name="md-close" size={30} color="#fff" />
-        </Pressable>
-      </View>
-      <Camera
-        style={styles.camera}
-        ref={cameraRef}
-        type={type}
-        flashMode={flash}
-      ></Camera>
+      <HeaderCamera
+        toggleCameraFlash={toggleCameraFlash}
+        onClose={() => {
+          navigation.navigate("OnboardingScreen");
+        }}
+        flashActive={flash === FlashMode.off}
+      />
+      <Watermark>
+        <Camera
+          style={styles.camera}
+          ref={cameraRef}
+          type={type}
+          flashMode={flash}
+        ></Camera>
+      </Watermark>
       <View style={styles.containerBotom}>
         <View style={styles.containerModos}>
           <Pressable
