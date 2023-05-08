@@ -23,10 +23,10 @@ const HomeScreen = () => {
         >
           <Button
             onPress={() => {
-              navigation.navigate("CameraScreen");
+              navigation.navigate("DrawerNavigator");
             }}
           >
-            <Text color={"white"}>Tomar Foto</Text>
+            <Text color={"white"}>Home</Text>
           </Button>
         </View>
       </ScrollView>

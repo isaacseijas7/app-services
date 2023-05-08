@@ -111,7 +111,7 @@ const OnboardingScreen = () => {
 
   const nextStep = (currentStep) => {
     if (currentStep >= stepsData.length) {
-      navigation.navigate("CameraScreen");
+      navigation.navigate("LoginScreen");
     } else {
       setStep(currentStep + 1);
     }
